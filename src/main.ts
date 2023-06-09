@@ -3,7 +3,6 @@ import { Linear, UndefinedError } from "./Linear";
 import { parseEmbed } from "./util";
 
 async function main(
-  issueTitle: string,
   issueContent: string,
   apiKey: string,
   teamId: string,
@@ -28,17 +27,15 @@ async function main(
   // ) {
   //   throw new UndefinedError("issueFilePath");
   // }
-  const title = issueTitle;
+
   const replaceRecords = parseEmbed(embed);
   info("--- view embed ---");
-  info(JSON.stringify(title, null, 2));
+  info(JSON.stringify(replaceRecords, null, 2));
 
   const client = new Linear(apiKey, teamId, stateId, isDryrun);
 
   info(`--- create issue ---`);
   const data = issueContent;
-  // const title = issueTitle;
-
   const issueData = client.readData(data, replaceRecords);
   info(JSON.stringify(issueData, null, 2));
 
@@ -53,7 +50,6 @@ async function main(
 
 async function run(): Promise<void> {
   try {
-    const issueTitle: string = getInput("issueTitle");
     const issueContent: string = getInput("issueContent");
     const apiKey: string = getInput("apiKey");
     const teamId: string = getInput("teamId");
@@ -61,15 +57,7 @@ async function run(): Promise<void> {
     const isDryrun: boolean = Boolean(getInput("isDryrun"));
     const embed: string = getInput("embed");
 
-    await main(
-      issueTitle,
-      issueContent,
-      apiKey,
-      teamId,
-      stateId,
-      isDryrun,
-      embed
-    );
+    await main(issueContent, apiKey, teamId, stateId, isDryrun, embed);
   } catch (error) {
     setFailed(error.message);
   }

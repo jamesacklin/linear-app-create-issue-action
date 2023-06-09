@@ -110,7 +110,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(186);
 const Linear_1 = __nccwpck_require__(907);
 const util_1 = __nccwpck_require__(24);
-function main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed) {
+function main(issueContent, apiKey, teamId, stateId, isDryrun, embed) {
     return __awaiter(this, void 0, void 0, function* () {
         if (apiKey === undefined || apiKey === "") {
             throw new Linear_1.UndefinedError("apiKey");
@@ -128,14 +128,12 @@ function main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed
         // ) {
         //   throw new UndefinedError("issueFilePath");
         // }
-        const title = issueTitle;
         const replaceRecords = util_1.parseEmbed(embed);
         core_1.info("--- view embed ---");
-        core_1.info(JSON.stringify(title, null, 2));
+        core_1.info(JSON.stringify(replaceRecords, null, 2));
         const client = new Linear_1.Linear(apiKey, teamId, stateId, isDryrun);
         core_1.info(`--- create issue ---`);
         const data = issueContent;
-        // const title = issueTitle;
         const issueData = client.readData(data, replaceRecords);
         core_1.info(JSON.stringify(issueData, null, 2));
         if (isDryrun) {
@@ -150,14 +148,13 @@ function main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const issueTitle = core_1.getInput("issueTitle");
             const issueContent = core_1.getInput("issueContent");
             const apiKey = core_1.getInput("apiKey");
             const teamId = core_1.getInput("teamId");
             const stateId = core_1.getInput("stateId");
             const isDryrun = Boolean(core_1.getInput("isDryrun"));
             const embed = core_1.getInput("embed");
-            yield main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed);
+            yield main(issueContent, apiKey, teamId, stateId, isDryrun, embed);
         }
         catch (error) {
             core_1.setFailed(error.message);
