@@ -150,7 +150,8 @@ function run() {
             const stateId = core_1.getInput("stateId");
             const isDryrun = Boolean(core_1.getInput("isDryrun"));
             const embed = core_1.getInput("embed");
-            yield main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed);
+            const fullContent = core_1.getInput("fullContent");
+            yield main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed, fullContent);
         }
         catch (error) {
             core_1.setFailed(error.message);

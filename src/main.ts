@@ -54,6 +54,7 @@ async function run(): Promise<void> {
     const stateId: string = getInput("stateId");
     const isDryrun: boolean = Boolean(getInput("isDryrun"));
     const embed: string = getInput("embed");
+    const fullContent: string = getInput("fullContent");
 
     await main(
       issueTitle,
@@ -62,7 +63,8 @@ async function run(): Promise<void> {
       teamId,
       stateId,
       isDryrun,
-      embed
+      embed,
+      fullContent
     );
   } catch (error: any) {
     setFailed(error.message);
