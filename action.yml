@@ -1,31 +1,34 @@
-name: 'linear-app-create-issue'
-description: 'GitHub Action to create an Issue for Linear.app.'
+name: "linear-app-create-issue"
+description: "GitHub Action to create an Issue for Linear.app."
 
 branding:
   icon: check-square
   color: purple
-author: 'Futa Hirakoba <korosuke613613@gmail.com>'
+author: "Futa Hirakoba <korosuke613613@gmail.com>"
 
 inputs:
+  issueTitle: # change this
+    required: true
+    description: "Issue title."
   issueContent: # change this
     required: true
-    description: 'Issue markdown.'
+    description: "Issue markdown."
   apiKey: # change this
     required: true
-    description: 'api key of Linear.app.'
+    description: "api key of Linear.app."
   teamId: # change this
     required: true
-    description: 'team id of Linear.app.'
+    description: "team id of Linear.app."
   stateId: # change this
     required: true
-    description: 'state id of Linear.app.'
+    description: "state id of Linear.app."
   isDryrun: # change this
     required: false
-    description: 'enable dryrun'
+    description: "enable dryrun"
   embed:
     required: false
     description: 'embed variable. (ex: "month=July,day=13")'
 
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
