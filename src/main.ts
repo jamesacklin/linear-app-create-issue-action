@@ -28,17 +28,17 @@ async function main(
   // ) {
   //   throw new UndefinedError("issueFilePath");
   // }
-
+  const title = issueTitle;
   const replaceRecords = parseEmbed(embed);
   info("--- view embed ---");
-  info(JSON.stringify(replaceRecords, null, 2));
+  info(JSON.stringify(title, null, 2));
 
   const client = new Linear(apiKey, teamId, stateId, isDryrun);
 
   info(`--- create issue ---`);
   const data = issueContent;
-  const title = issueTitle;
-  console.log(title);
+  // const title = issueTitle;
+
   const issueData = client.readData(data, replaceRecords);
   info(JSON.stringify(issueData, null, 2));
 

@@ -128,14 +128,14 @@ function main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed
         // ) {
         //   throw new UndefinedError("issueFilePath");
         // }
+        const title = issueTitle;
         const replaceRecords = util_1.parseEmbed(embed);
         core_1.info("--- view embed ---");
-        core_1.info(JSON.stringify(replaceRecords, null, 2));
+        core_1.info(JSON.stringify(title, null, 2));
         const client = new Linear_1.Linear(apiKey, teamId, stateId, isDryrun);
         core_1.info(`--- create issue ---`);
         const data = issueContent;
-        const title = issueTitle;
-        console.log(title);
+        // const title = issueTitle;
         const issueData = client.readData(data, replaceRecords);
         core_1.info(JSON.stringify(issueData, null, 2));
         if (isDryrun) {
