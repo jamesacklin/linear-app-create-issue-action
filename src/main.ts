@@ -1,10 +1,9 @@
 import { getInput, setFailed, info } from "@actions/core";
 import { Linear, UndefinedError } from "./Linear";
-import { readFileSync } from "fs";
 import { parseEmbed } from "./util";
 
 async function main(
-  issueFilePath: string,
+  issueContent: string,
   apiKey: string,
   teamId: string,
   stateId: string,
@@ -21,13 +20,13 @@ async function main(
     throw new UndefinedError("stateId");
   }
 
-  if (
-    issueFilePath === undefined ||
-    issueFilePath === "" ||
-    !issueFilePath.endsWith(".md")
-  ) {
-    throw new UndefinedError("issueFilePath");
-  }
+  // if (
+  //   issueFilePath === undefined ||
+  //   issueFilePath === "" ||
+  //   !issueFilePath.endsWith(".md")
+  // ) {
+  //   throw new UndefinedError("issueFilePath");
+  // }
 
   const replaceRecords = parseEmbed(embed);
   info("--- view embed ---");
@@ -35,8 +34,8 @@ async function main(
 
   const client = new Linear(apiKey, teamId, stateId, isDryrun);
 
-  info(`--- create ${issueFilePath} ---`);
-  const data = readFileSync(issueFilePath);
+  info(`--- create issue ---`);
+  const data = issueContent;
   const issueData = client.readData(data, replaceRecords);
   info(JSON.stringify(issueData, null, 2));
 
@@ -44,21 +43,21 @@ async function main(
     info(`--- !!DRYRUN!! ---`);
   }
   const result = await client.createIssue();
-  info(`--- result ${issueFilePath} ---`);
+  info(`--- result ${issueContent} ---`);
   info(JSON.stringify(result, null, 2));
-  info(`--- done ${issueFilePath} ---`);
+  info(`--- done ${issueContent} ---`);
 }
 
 async function run(): Promise<void> {
   try {
-    const issueFilePath: string = getInput("issueFilePath");
+    const issueContent: string = getInput("issueContent");
     const apiKey: string = getInput("apiKey");
     const teamId: string = getInput("teamId");
     const stateId: string = getInput("stateId");
     const isDryrun: boolean = Boolean(getInput("isDryrun"));
     const embed: string = getInput("embed");
 
-    await main(issueFilePath, apiKey, teamId, stateId, isDryrun, embed);
+    await main(issueContent, apiKey, teamId, stateId, isDryrun, embed);
   } catch (error) {
     setFailed(error.message);
   }

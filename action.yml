@@ -7,9 +7,9 @@ branding:
 author: 'Futa Hirakoba <korosuke613613@gmail.com>'
 
 inputs:
-  issueFilePath: # change this
+  issueContent: # change this
     required: true
-    description: 'File path of Issue markdown.'
+    description: 'Issue markdown.'
   apiKey: # change this
     required: true
     description: 'api key of Linear.app.'
