@@ -68,11 +68,12 @@ export class Linear {
   };
 
   readData(
+    title: string,
     data: string | Buffer,
     replaces?: Record<string, unknown>
   ): IssueData {
     const front = loadFront(data);
-    const { __content, title, description, ...other } = front;
+    const { __content, description, ...other } = front;
 
     let replacedTitle = title;
     if (replaces !== undefined) {

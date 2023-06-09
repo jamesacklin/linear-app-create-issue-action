@@ -76,9 +76,9 @@ class Linear {
             return this.client.issueCreate(issueCreateInput);
         });
     }
-    readData(data, replaces) {
+    readData(title, data, replaces) {
         const front = yaml_front_matter_1.loadFront(data);
-        const { __content, title, description } = front, other = __rest(front, ["__content", "title", "description"]);
+        const { __content, description } = front, other = __rest(front, ["__content", "description"]);
         let replacedTitle = title;
         if (replaces !== undefined) {
             replacedTitle = this.resolveFormatString(title, replaces);
@@ -121,21 +121,13 @@ function main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed
         if (stateId === undefined || stateId === "") {
             throw new Linear_1.UndefinedError("stateId");
         }
-        // if (
-        //   issueFilePath === undefined ||
-        //   issueFilePath === "" ||
-        //   !issueFilePath.endsWith(".md")
-        // ) {
-        //   throw new UndefinedError("issueFilePath");
-        // }
         const replaceRecords = util_1.parseEmbed(embed);
         core_1.info("--- view embed ---");
         core_1.info(JSON.stringify(replaceRecords, null, 2));
         const client = new Linear_1.Linear(apiKey, teamId, stateId, isDryrun);
         core_1.info(`--- create issue ---`);
         const data = issueContent;
-        const issueData = client.readData(data, replaceRecords);
-        issueData.title = issueTitle;
+        const issueData = client.readData(data, issueTitle, replaceRecords);
         core_1.info(JSON.stringify(issueData, null, 2));
         if (isDryrun) {
             core_1.info(`--- !!DRYRUN!! ---`);

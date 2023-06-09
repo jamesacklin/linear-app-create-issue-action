@@ -21,14 +21,6 @@ async function main(
     throw new UndefinedError("stateId");
   }
 
-  // if (
-  //   issueFilePath === undefined ||
-  //   issueFilePath === "" ||
-  //   !issueFilePath.endsWith(".md")
-  // ) {
-  //   throw new UndefinedError("issueFilePath");
-  // }
-
   const replaceRecords = parseEmbed(embed);
   info("--- view embed ---");
   info(JSON.stringify(replaceRecords, null, 2));
@@ -37,8 +29,7 @@ async function main(
 
   info(`--- create issue ---`);
   const data = issueContent;
-  const issueData = client.readData(data, replaceRecords);
-  issueData.title = issueTitle;
+  const issueData = client.readData(data, issueTitle, replaceRecords);
   info(JSON.stringify(issueData, null, 2));
 
   if (isDryrun) {
@@ -69,7 +60,7 @@ async function run(): Promise<void> {
       isDryrun,
       embed
     );
-  } catch (error) {
+  } catch (error: any) {
     setFailed(error.message);
   }
 }
