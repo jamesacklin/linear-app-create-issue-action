@@ -1,5 +1,4 @@
 import { LinearClient } from "@linear/sdk";
-import { loadFront } from "yaml-front-matter";
 
 // eslint-disable-next-line node/no-missing-import
 import { IssueCreateInput } from "@linear/sdk/dist/_generated_documents";
@@ -21,15 +20,11 @@ export class Linear {
   constructor(
     private apiKey: string,
     private teamId: string,
-    private stateId: string,
-    public isDryrun: boolean = false
+    private stateId: string
   ) {
     this.client = new LinearClient({ apiKey });
   }
 
-  /**
-   * create task for check renovate.
-   */
   async createIssue(issueData?: IssueData) {
     let inputIssueData = issueData;
     if (inputIssueData === undefined) {
@@ -46,9 +41,6 @@ export class Linear {
       ...inputIssueData,
     };
 
-    if (this.isDryrun) {
-      return issueCreateInput;
-    }
     return this.client.issueCreate(issueCreateInput);
   }
 

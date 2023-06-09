@@ -18,7 +18,7 @@ async function main(
     throw new UndefinedError("stateId");
   }
 
-  const client = new Linear(apiKey, teamId, stateId, false);
+  const client = new Linear(apiKey, teamId, stateId);
 
   info(`--- create issue ---`);
   const data = issueContent;

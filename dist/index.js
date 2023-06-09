@@ -27,16 +27,12 @@ class UndefinedError extends Error {
 }
 exports.UndefinedError = UndefinedError;
 class Linear {
-    constructor(apiKey, teamId, stateId, isDryrun = false) {
+    constructor(apiKey, teamId, stateId) {
         this.apiKey = apiKey;
         this.teamId = teamId;
         this.stateId = stateId;
-        this.isDryrun = isDryrun;
         this.client = new sdk_1.LinearClient({ apiKey });
     }
-    /**
-     * create task for check renovate.
-     */
     createIssue(issueData) {
         return __awaiter(this, void 0, void 0, function* () {
             let inputIssueData = issueData;
@@ -47,9 +43,6 @@ class Linear {
                 throw new UndefinedError("IssueData");
             }
             const issueCreateInput = Object.assign({ teamId: this.teamId, stateId: this.stateId }, inputIssueData);
-            if (this.isDryrun) {
-                return issueCreateInput;
-            }
             return this.client.issueCreate(issueCreateInput);
         });
     }
@@ -94,7 +87,7 @@ function main(issueTitle, issueContent, apiKey, teamId, stateId) {
         if (stateId === undefined || stateId === "") {
             throw new Linear_1.UndefinedError("stateId");
         }
-        const client = new Linear_1.Linear(apiKey, teamId, stateId, false);
+        const client = new Linear_1.Linear(apiKey, teamId, stateId);
         core_1.info(`--- create issue ---`);
         const data = issueContent;
         const issueData = client.readData(issueTitle, data);
