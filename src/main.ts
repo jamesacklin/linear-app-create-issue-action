@@ -1,17 +1,12 @@
-/* eslint-disable max-params */
 import { getInput, setFailed, info } from "@actions/core";
 import { Linear, UndefinedError } from "./Linear";
-import { parseEmbed } from "./util";
 
 async function main(
   issueTitle: string,
   issueContent: string,
   apiKey: string,
   teamId: string,
-  stateId: string,
-  isDryrun: boolean,
-  embed: string,
-  fullContent?: any
+  stateId: string
 ) {
   if (apiKey === undefined || apiKey === "") {
     throw new UndefinedError("apiKey");
@@ -23,22 +18,13 @@ async function main(
     throw new UndefinedError("stateId");
   }
 
-  info(JSON.stringify(fullContent, null, 2));
-
-  const replaceRecords = parseEmbed(embed);
-  info("--- view embed ---");
-  info(JSON.stringify(replaceRecords, null, 2));
-
-  const client = new Linear(apiKey, teamId, stateId, isDryrun);
+  const client = new Linear(apiKey, teamId, stateId, false);
 
   info(`--- create issue ---`);
   const data = issueContent;
-  const issueData = client.readData(issueTitle, data, replaceRecords);
+  const issueData = client.readData(issueTitle, data);
   info(JSON.stringify(issueData, null, 2));
 
-  if (isDryrun) {
-    info(`--- !!DRYRUN!! ---`);
-  }
   const result = await client.createIssue();
   info(`--- result ${issueContent} ---`);
   info(JSON.stringify(result, null, 2));
@@ -52,20 +38,8 @@ async function run(): Promise<void> {
     const apiKey: string = getInput("apiKey");
     const teamId: string = getInput("teamId");
     const stateId: string = getInput("stateId");
-    const isDryrun: boolean = Boolean(getInput("isDryrun"));
-    const embed: string = getInput("embed");
-    const fullContent: string = getInput("fullContent");
 
-    await main(
-      issueTitle,
-      issueContent,
-      apiKey,
-      teamId,
-      stateId,
-      isDryrun,
-      embed,
-      fullContent
-    );
+    await main(issueTitle, issueContent, apiKey, teamId, stateId);
   } catch (error: any) {
     setFailed(error.message);
   }

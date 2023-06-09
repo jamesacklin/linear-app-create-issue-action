@@ -9,28 +9,19 @@ author: "James Acklin <james@ackl.in>"
 inputs:
   issueTitle:
     required: true
-    description: "Issue title"
+    description: "Issue title from GH event"
   issueContent:
     required: true
-    description: "Issue markdown"
-  apiKey: # change this
+    description: "Issue markdown from GH event"
+  apiKey:
     required: true
-    description: "API key of Linear.app"
-  teamId: # change this
+    description: "API key from Linear.app"
+  teamId:
     required: true
-    description: "Team ID of Linear.app"
-  stateId: # change this
+    description: "Team ID from Linear.app"
+  stateId:
     required: true
-    description: "State ID of Linear.app"
-  isDryrun: # change this
-    required: false
-    description: "Enable dryrun"
-  embed:
-    required: false
-    description: 'Embed variable. (ex: "month=July,day=13")'
-  fullContent:
-    required: false
-    description: "Full event data for opened issue"
+    description: "State ID from Linear.app"
 
 runs:
   using: "node16"
