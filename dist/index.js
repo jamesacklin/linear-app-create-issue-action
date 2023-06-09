@@ -127,7 +127,7 @@ function main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed
         const client = new Linear_1.Linear(apiKey, teamId, stateId, isDryrun);
         core_1.info(`--- create issue ---`);
         const data = issueContent;
-        const issueData = client.readData(data, issueTitle, replaceRecords);
+        const issueData = client.readData(issueTitle, data, replaceRecords);
         core_1.info(JSON.stringify(issueData, null, 2));
         if (isDryrun) {
             core_1.info(`--- !!DRYRUN!! ---`);

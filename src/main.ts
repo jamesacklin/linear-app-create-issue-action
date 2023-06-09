@@ -29,7 +29,7 @@ async function main(
 
   info(`--- create issue ---`);
   const data = issueContent;
-  const issueData = client.readData(data, issueTitle, replaceRecords);
+  const issueData = client.readData(issueTitle, data, replaceRecords);
   info(JSON.stringify(issueData, null, 2));
 
   if (isDryrun) {
