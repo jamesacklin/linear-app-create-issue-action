@@ -7,6 +7,9 @@ branding:
 author: "Futa Hirakoba <korosuke613613@gmail.com>"
 
 inputs:
+  issueTitle: # change this
+    required: true
+    description: "Issue title."
   issueContent: # change this
     required: true
     description: "Issue markdown."
