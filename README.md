@@ -15,8 +15,6 @@ See [action.yml](./action.yml)
 | apiKey       | API key for Linear.app ([ref](https://developers.linear.app/docs/graphql/working-with-the-graphql-api#personal-api-keys)) | yes      | string  |
 | teamId       | Team ID for Linear.app ([ref](#faq-get-teamid-stateid))                                                                   | yes      | string  |
 | stateId      | State ID for Linear.app ([ref](#faq-get-teamid-stateid))                                                                  | yes      | string  |
-| isDryrun     | enable dryrun (not create issue)                                                                                          | no       | boolean |
-| embed        | embed variable. (ex: "month=July,day=13")                                                                                 | no       | string  |
 
 ## Usage
 
