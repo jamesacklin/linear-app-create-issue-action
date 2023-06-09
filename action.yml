@@ -28,7 +28,10 @@ inputs:
   embed:
     required: false
     description: 'Embed variable. (ex: "month=July,day=13")'
+  fullContent:
+    required: false
+    description: "Full event data for opened issue"
 
 runs:
-  using: "node12"
+  using: "node16"
   main: "dist/index.js"

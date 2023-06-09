@@ -107,10 +107,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+/* eslint-disable max-params */
 const core_1 = __nccwpck_require__(186);
 const Linear_1 = __nccwpck_require__(907);
 const util_1 = __nccwpck_require__(24);
-function main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed) {
+function main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed, fullContent) {
     return __awaiter(this, void 0, void 0, function* () {
         if (apiKey === undefined || apiKey === "") {
             throw new Linear_1.UndefinedError("apiKey");
@@ -121,6 +122,7 @@ function main(issueTitle, issueContent, apiKey, teamId, stateId, isDryrun, embed
         if (stateId === undefined || stateId === "") {
             throw new Linear_1.UndefinedError("stateId");
         }
+        core_1.info(JSON.stringify(fullContent, null, 2));
         const replaceRecords = util_1.parseEmbed(embed);
         core_1.info("--- view embed ---");
         core_1.info(JSON.stringify(replaceRecords, null, 2));

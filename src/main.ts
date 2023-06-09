@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 import { getInput, setFailed, info } from "@actions/core";
 import { Linear, UndefinedError } from "./Linear";
 import { parseEmbed } from "./util";
@@ -9,7 +10,8 @@ async function main(
   teamId: string,
   stateId: string,
   isDryrun: boolean,
-  embed: string
+  embed: string,
+  fullContent?: any
 ) {
   if (apiKey === undefined || apiKey === "") {
     throw new UndefinedError("apiKey");
@@ -20,6 +22,8 @@ async function main(
   if (stateId === undefined || stateId === "") {
     throw new UndefinedError("stateId");
   }
+
+  info(JSON.stringify(fullContent, null, 2));
 
   const replaceRecords = parseEmbed(embed);
   info("--- view embed ---");
