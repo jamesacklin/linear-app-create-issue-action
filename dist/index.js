@@ -46,10 +46,15 @@ class Linear {
             return this.client.issueCreate(issueCreateInput);
         });
     }
-    readData(title, data) {
+    readData(title, reporter, url, data) {
         this.issueData = {
             title,
-            description: data,
+            description: `${data.toString()}
+      
+      ---
+      Reported by: ${reporter}
+      ${url}
+      `,
         };
         return this.issueData;
     }
@@ -76,7 +81,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(186);
 const Linear_1 = __nccwpck_require__(907);
-function main(issueTitle, issueContent, apiKey, teamId, stateId) {
+function main(issueTitle, issueContent, issueReporter, issueUrl, apiKey, teamId, stateId) {
     return __awaiter(this, void 0, void 0, function* () {
         if (apiKey === undefined || apiKey === "") {
             throw new Linear_1.UndefinedError("apiKey");
@@ -90,7 +95,7 @@ function main(issueTitle, issueContent, apiKey, teamId, stateId) {
         const client = new Linear_1.Linear(apiKey, teamId, stateId);
         core_1.info(`--- create issue ---`);
         const data = issueContent;
-        const issueData = client.readData(issueTitle, data);
+        const issueData = client.readData(issueTitle, issueReporter, issueUrl, data);
         core_1.info(JSON.stringify(issueData, null, 2));
         const result = yield client.createIssue();
         core_1.info(`--- result ${issueContent} ---`);
@@ -103,10 +108,12 @@ function run() {
         try {
             const issueTitle = core_1.getInput("issueTitle");
             const issueContent = core_1.getInput("issueContent");
+            const issueReporter = core_1.getInput("issueReporter");
+            const issueUrl = core_1.getInput("issueUrl");
             const apiKey = core_1.getInput("apiKey");
             const teamId = core_1.getInput("teamId");
             const stateId = core_1.getInput("stateId");
-            yield main(issueTitle, issueContent, apiKey, teamId, stateId);
+            yield main(issueTitle, issueContent, issueReporter, issueUrl, apiKey, teamId, stateId);
         }
         catch (error) {
             core_1.setFailed(error.message);

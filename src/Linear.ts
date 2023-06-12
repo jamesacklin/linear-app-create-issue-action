@@ -44,10 +44,20 @@ export class Linear {
     return this.client.issueCreate(issueCreateInput);
   }
 
-  readData(title: string, data: string | Buffer): IssueData {
+  readData(
+    title: string,
+    reporter: string,
+    url: string,
+    data: string | Buffer
+  ): IssueData {
     this.issueData = {
       title,
-      description: data,
+      description: `${data.toString()}
+      
+      ---
+      Reported by: ${reporter}
+      ${url}
+      `,
     };
 
     return this.issueData;

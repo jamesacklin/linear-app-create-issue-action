@@ -13,6 +13,12 @@ inputs:
   issueContent:
     required: true
     description: "Issue markdown from GH event"
+  issueReporter:
+    required: true
+    description: "Original reporter on GH"
+  issueUrl:
+    required: true
+    description: "GH issue URL"
   apiKey:
     required: true
     description: "API key from Linear.app"
