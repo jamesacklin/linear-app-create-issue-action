@@ -47,13 +47,10 @@ class Linear {
         });
     }
     readData(title, reporter, url, data) {
+        const description = `${data}\n\nReporter: @${reporter}\nURL: ${url}`;
         this.issueData = {
             title,
-            description: `${data.toString()}
-      
-      Reported on GitHub by @${reporter}
-      ${url}
-      `,
+            description,
         };
         return this.issueData;
     }

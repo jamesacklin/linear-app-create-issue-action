@@ -50,13 +50,10 @@ export class Linear {
     url: string,
     data: string | Buffer
   ): IssueData {
+    const description = `${data}\n\nReporter: @${reporter}\nURL: ${url}`;
     this.issueData = {
       title,
-      description: `${data.toString()}
-      
-      Reported on GitHub by @${reporter}
-      ${url}
-      `,
+      description,
     };
 
     return this.issueData;
