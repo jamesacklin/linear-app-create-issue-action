@@ -54,8 +54,7 @@ export class Linear {
       title,
       description: `${data.toString()}
       
-      ---
-      Reported by: ${reporter}
+      Reported on GitHub by @${reporter}
       ${url}
       `,
     };
